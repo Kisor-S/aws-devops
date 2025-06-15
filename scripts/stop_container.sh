@@ -1,16 +1,13 @@
 #!/bin/bash
 set -e
 
-# Use full path to docker binary
-DOCKER_BIN=$(which docker)
+# Get container IDs (skipping the header)
+containerid=$(docker ps | awk 'NR>1 {print $1}')
 
-# Get running container IDs
-containerid=$($DOCKER_BIN ps -q)
-
-# Stop and remove containers if any are running
+# Remove containers if found
 if [ -n "$containerid" ]; then
-  $DOCKER_BIN rm -f $containerid
-  echo "Stopped and removed running container(s): $containerid"
+  docker rm -f $containerid
+  echo "Stopped and removed: $containerid"
 else
-  echo "No running containers found."
+  echo "No running containers."
 fi
