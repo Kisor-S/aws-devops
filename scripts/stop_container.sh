@@ -1,4 +1,6 @@
 #!/bin/bash
+echo "===== Script content:"
+cat "$0"
 set -e
 
 # Get container IDs (skipping the header)
